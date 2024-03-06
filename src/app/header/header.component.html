@@ -1,3 +1,34 @@
-<p-button label="Submit"></p-button>
-<span class="material-symbols-outlined"> close </span>
-<span class="material-symbols-outlined"> radio_button_unchecked </span>
+<!-- <input
+  type="text"
+  pInputText
+  placeholder="Filled InputText"
+  class="p-inputtext-sm"
+/> -->
+<div class="fondo">
+  <img src="../../assets/degradado.png" alt="" class="h-screen" />
+</div>
+<div class="flex flex-row header justify-content-between align-items-center">
+  <div class="flex flex-raw logos align-content-center align-items-center">
+    <img class="max-h-full p-2" src="../../assets/logo_fesud.png" alt="" />
+    <img
+      class="max-h-full"
+      src="https://vicerrectorado.upea.bo/uploads/a125.png"
+      alt=""
+    />
+    <!-- <div class="imagen">
+      <img class="surface-700" ngSrc="../../assets/logo_fesud.png" fill />
+    </div>
+
+    <div class="imagen">
+        <img class="surface-700" ngSrc="https://vicerrectorado.upea.bo/uploads/a125.png" fill />
+      </div> -->
+  </div>
+
+  <div>
+    <p-button (onClick)="showLogin()" label="Iniciar Sesion"></p-button>
+  </div>
+</div>
+
+<p-dialog [(visible)]="modalLogin" [modal]="true">
+  <ng-template pTemplate="headless"> <app-login class="login"></app-login> </ng-template>
+</p-dialog>

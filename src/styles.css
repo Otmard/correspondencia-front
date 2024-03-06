@@ -1,3 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+body {
+  padding: 0;
+  margin: 0;
+}
+@layer reset, primeng;
+
+@layer reset {
+  .p-input-filled .p-inputtext:enabled:focus {
+    box-shadow: none;
+    background-color: #fff;
+    border-color: transparent;
+    background-size: 100% 2px, 100% 1px;
+  }
+}
+:root {
+  --primary-color: #e3001b;
+}
+/* @layer reset {
+  button,
+  input {
+    background-color: #00a244;
+  }
+} */
+@layer reset {
+  .p-dialog .p-dialog-content {
+    background: rgba(255, 255, 255, 0);
+  }
+}
