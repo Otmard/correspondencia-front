@@ -29,6 +29,13 @@
   </div>
 </div>
 
-<p-dialog [(visible)]="modalLogin" [modal]="true">
-  <ng-template pTemplate="headless"> <app-login class="login"></app-login> </ng-template>
+<p-dialog
+  [(visible)]="modalLogin"
+  [modal]="true"
+  [closeOnEscape]="true"
+  [dismissableMask]="true"
+>
+  <ng-template pTemplate="headless">
+    <app-login class="login"></app-login>
+  </ng-template>
 </p-dialog>

@@ -20,12 +20,10 @@
 
 .fondo {
   position: fixed;
-  right: -25%;
-  opacity: calc();
+  right: -255px;
+  z-index: -10;
 }
 
-
 .login {
-    backdrop-filter: blur(2px);
-  }
-  
+  backdrop-filter: blur(2px);
+}
