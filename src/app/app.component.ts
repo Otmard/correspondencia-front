@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { PrimeNGConfig } from 'primeng/api';
 import { NoticiasComponent } from './noticias/noticias.component';
@@ -8,7 +8,7 @@ import { NoticiasComponent } from './noticias/noticias.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, NoticiasComponent],
+  imports: [RouterOutlet, HeaderComponent, NoticiasComponent,RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
