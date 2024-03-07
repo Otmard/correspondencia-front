@@ -2,43 +2,43 @@
   <div class="sidebar">
     <div class="logo"></div>
     <ul class="menu">
-      <li class="active">
-        <a href="#">
+      <li>
+        <a routerLink="/admin">
           <i class="fas fa-house"></i>
           <span>Inicio</span>
         </a>
       </li>
-      <li>
-        <a href="#">
+      <li routerLinkActive="active">
+        <a routerLink="entrante">
           <i class="fas fa-inbox"></i>
           <span>Entrante</span>
         </a>
       </li>
-      <li>
-        <a href="#">
+      <li routerLinkActive="active">
+        <a routerLink="pendiente">
           <i class="fas fa-business-time"></i>
           <span>Pendientes</span>
         </a>
       </li>
-      <li>
-        <a href="#">
+      <li routerLinkActive="active">
+        <a routerLink="enviado">
           <i class="fas fa-check"></i>
           <span>Enviados</span>
         </a>
       </li>
-      <li>
-        <a href="#">
+      <li routerLinkActive="active">
+        <a routerLink="archivo">
           <i class="fas fa-box-archive"></i>
           <span>Archivo</span>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a routerLink="profile">
           <i class="fas fa-user"></i>
           <span>Perfil</span>
         </a>
       </li>
-      <li class="logout">
+      <li routerLink="/" class="logout">
         <a href="#">
           <i class="fas fa-sign-out-alt"></i>
           <span>Cerrar Sesion</span>
@@ -107,6 +107,9 @@
           <span class="card_detail"> Correspondencia archivada </span>
         </div>
       </div>
+    </div>
+    <div class="card_entrante">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

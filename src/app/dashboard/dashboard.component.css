@@ -6,8 +6,6 @@
   font-family: "Poppins", sans-serif;
   display: flex;
 }
-body {
-}
 .sidebar {
   position: sticky;
   top: 0;
