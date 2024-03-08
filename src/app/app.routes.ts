@@ -6,6 +6,7 @@ import { EntranteComponent } from './entrante/entrante.component';
 import { PendienteComponent } from './pendiente/pendiente.component';
 import { EnviadoComponent } from './enviado/enviado.component';
 import { ArchivoComponent } from './archivo/archivo.component';
+import { GraficoComponent } from './grafico/grafico.component';
 
 export const routes: Routes = [
   {
@@ -32,6 +33,10 @@ export const routes: Routes = [
         path: 'archivo',
         component: ArchivoComponent,
       },
+      {
+        path:'grafico',
+        component:GraficoComponent
+      }
     ],
   },
 
