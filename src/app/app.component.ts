@@ -4,17 +4,18 @@ import { HeaderComponent } from './header/header.component';
 import { PrimeNGConfig } from 'primeng/api';
 import { NoticiasComponent } from './noticias/noticias.component';
 // import { NoticiasComponent } from './noticias/NoticiasComponent';
-
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, NoticiasComponent,RouterLink],
+  imports: [RouterOutlet, HeaderComponent, NoticiasComponent, RouterLink, CardModule, ButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'corr-front';
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(private primengConfig: PrimeNGConfig) { }
 
   ngOnInit() {
     this.primengConfig.ripple = true;

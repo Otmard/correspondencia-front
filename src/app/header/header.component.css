@@ -1,27 +1,18 @@
-.logos {
-  height: 80px;
+img {
+  height: 70px;
 }
+
 .header {
-  background-color: rgba(127, 127, 127, 0.292);
-  position: fixed;
+  background-color: var(--surface-0);
+  box-shadow: var();
+  position: sticky;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 1;
-  /* height: 100px; */
+  box-shadow: 0 2px 16px hsla(0, 0%, 0%, .15);
+
   padding: 10px 8rem;
-}
-.imagen {
-  position: relative;
-
-  width: 80px;
-  height: 80px;
-}
-
-.fondo {
-  position: fixed;
-  right: -255px;
-  z-index: -10;
 }
 
 .login {

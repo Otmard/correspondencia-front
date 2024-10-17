@@ -1,62 +1,38 @@
-<div class="card">
-  <div><h2>Comunicados</h2></div>
+<div class="container">
+  <div>
+    <h2>Comunicados</h2>
+  </div>
   <div class="">
-    <p-carousel
-      [value]="imagenes"
-      [numVisible]="3"
-      [numScroll]="1"
-      [circular]="true"
-      [autoplayInterval]="5000"
-      [responsiveOptions]="responsiveOptions"
-      [indicatorsContentStyle]="{ indicator: true }"
-    >
+    <p-carousel [value]="noticias" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="5000"
+      [responsiveOptions]="responsiveOptions" [indicatorsContentStyle]="{ indicator: true }">
       <ng-template pTemplate="nexticon">
         <div class="button-next flex align-items-center">
-          <p-button
-            icon="pi pi-angle-right"
-            [rounded]="true"
-            [text]="true"
-            [raised]="true"
-          ></p-button>
+          <p-button icon="pi pi-angle-right" [rounded]="true" [text]="true" [raised]="true"></p-button>
         </div>
       </ng-template>
       <ng-template pTemplate="previousicon">
         <div class="button-next flex align-items-center">
-          <p-button
-            icon="pi pi-angle-left"
-            [rounded]="true"
-            [text]="true"
-            [raised]="true"
-          ></p-button>
+          <p-button icon="pi pi-angle-left" [rounded]="true" [text]="true" [raised]="true"></p-button>
         </div>
       </ng-template>
-      <ng-template let-product pTemplate="item" class="">
-        <div class="text-center">
-          <div class="">
-            <img
-              src="{{ product }}"
-              [alt]="product.name"
-              class="w-10 shadow-6"
-            />
-          </div>
-          <!-- <div>
-              <h4 class="mb-1">{{ product.name }}</h4>
-              <h6 class="mt-0 mb-3">{{ "$" + product.price }}</h6>
-              <p-tag
-                [value]="product.inventoryStatus"
-                [severity]="getSeverity(product.inventoryStatus)"
-              ></p-tag>
-              <div
-                class="mt-5 flex align-items-center justify-content-center gap-2"
-              >
-                <p-button icon="pi pi-search" [rounded]="true" />
-                <p-button
-                  icon="pi pi-star-fill"
-                  [rounded]="true"
-                  severity="secondary"
-                />
+      <ng-template let-noticia pTemplate="item" class="">
+        <div class="card-container">
+          <div class="card">
+
+            <img [src]="noticia.urlToImage" />
+            <p class="my-0 ml-3 text-color-secondary">{{noticia.publishedAt | date: 'dd/MM/yyyy'}}</p>
+            <div class="card-content">
+
+              <h3 class="m-0">{{noticia.title | slice : 0 : 50 }}...</h3>
+              <p>
+                {{noticia.description|slice : 0 : 150 }}...
+              </p>
+              <div class="footer">
+                <p>{{noticia.author}}</p>
+                <p>{{noticia.source.name}}</p>
               </div>
-            </div> -->
+            </div>
+          </div>
         </div>
       </ng-template>
     </p-carousel>
