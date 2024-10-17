@@ -1,6 +1,6 @@
 <div class="container">
   <div>
-    <h2>Comunicados</h2>
+    <h1 class="text-primary text-center ">Noticias</h1>
   </div>
   <div class="">
     <p-carousel [value]="noticias" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="5000"
@@ -18,8 +18,13 @@
       <ng-template let-noticia pTemplate="item" class="">
         <div class="card-container">
           <div class="card">
-
-            <img [src]="noticia.urlToImage" />
+            @if (noticia.urlToImage ) {
+              <img [src]="noticia.urlToImage" />
+            }
+            @else {
+              <img src="../../assets/logo_fesud.png" />
+            }
+            
             <p class="my-0 ml-3 text-color-secondary">{{noticia.publishedAt | date: 'dd/MM/yyyy'}}</p>
             <div class="card-content">
 
