@@ -1,0 +1,45 @@
+<div class="container">
+  <div>
+    <h1 class="text-primary text-center ">Noticias</h1>
+  </div>
+  <div class="">
+    <p-carousel [value]="noticias" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="5000"
+      [responsiveOptions]="responsiveOptions" [indicatorsContentStyle]="{ indicator: true }">
+      <ng-template pTemplate="nexticon">
+        <div class="button-next flex align-items-center">
+          <p-button icon="pi pi-angle-right" [rounded]="true" [text]="true" [raised]="true"></p-button>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="previousicon">
+        <div class="button-next flex align-items-center">
+          <p-button icon="pi pi-angle-left" [rounded]="true" [text]="true" [raised]="true"></p-button>
+        </div>
+      </ng-template>
+      <ng-template let-noticia pTemplate="item" class="">
+        <div class="card-container">
+          <div class="card">
+            @if (noticia.urlToImage ) {
+              <img [src]="noticia.urlToImage" />
+            }
+            @else {
+              <img src="../../assets/logo_fesud.png" />
+            }
+            
+            <p class="my-0 ml-3 text-color-secondary">{{noticia.publishedAt | date: 'dd/MM/yyyy'}}</p>
+            <div class="card-content">
+
+              <h3 class="m-0">{{noticia.title | slice : 0 : 50 }}...</h3>
+              <p>
+                {{noticia.description|slice : 0 : 150 }}...
+              </p>
+              <div class="footer">
+                <p>{{noticia.author}}</p>
+                <p>{{noticia.source.name}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</div>

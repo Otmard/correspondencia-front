@@ -1,0 +1,41 @@
+/* .container {
+
+  height: 100%;
+  background-color: red;
+} */
+.contenedor-formulario {
+  /* background-color: var(--surface-100); */
+  padding: 3rem;
+  border-radius: 10px;
+  /* box-shadow: 0 0 20px 5px var(--surface-100); */
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* @media (min-width: 1500px) {
+  .contenedor-formulario {
+    background-color: red;
+    height: 45rem;
+  }
+} */
+
+pdf-viewer .ng2-pdf-viewer-container {
+  overflow: auto;
+  scrollbar-width: none;
+}
+pdf-viewer .ng2-pdf-viewer-container::-webkit-scrollbar {
+  display: none;
+}
+:host ::ng-deep .p-fileupload-buttonbar{
+  display: flex;
+  justify-content: center;
+
+}
+:host ::ng-deep .page{
+  border: 10px solid #000;
+
+}
+.drop p{
+  margin: 0;
+}

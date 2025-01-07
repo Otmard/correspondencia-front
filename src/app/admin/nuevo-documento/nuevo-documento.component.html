@@ -1,0 +1,453 @@
+<!-- <app-plantilla></app-plantilla> -->
+<form action="" [formGroup]="formDocumento">
+  <div class="container">
+    <p-stepper
+      [linear]="false"
+      transitionOptions="4000ms cubic-bezier(0.86, 0, 0.07, 1)"
+    >
+      <p-stepperPanel header="Crear un nuevo documento">
+        <ng-template
+          pTemplate="content"
+          let-nextCallback="nextCallback"
+          let-index="index"
+        >
+          <div class="contenedor-formulario">
+            <div class="flex flex-column row-gap-3">
+              <p-floatLabel>
+                <input
+                  [style]="{ width: '100%' }"
+                  type="text"
+                  pInputText
+                  [readOnly]="true"
+                  value="Nombre del usuario Actual"
+                  formControlName="remitente"
+                />
+                <label for="nombreDestinatario">Nombre Remitente</label>
+              </p-floatLabel>
+              <p-floatLabel>
+                <input
+                  [style]="{ width: '100%' }"
+                  type="text"
+                  pInputText
+                  value="Cargo del usuario Actual"
+                  formControlName="cargoRemitente"
+                  [readOnly]="true"
+                />
+                <label for="nombreDestinatario">Cargo Remitente</label>
+              </p-floatLabel>
+              <p-floatLabel>
+                <p-dropdown
+                  [options]="options"
+                  formControlName="proceso"
+                  [(ngModel)]="selectedOption"
+                  id="proceso"
+                  [style]="{ width: '100%' }"
+                >
+                </p-dropdown>
+                <label for="proceso">Proceso</label>
+              </p-floatLabel>
+              <p-floatLabel>
+                <p-dropdown
+                  [options]="destinatarios"
+                  optionLabel="fullName"
+                  placeholder="Seleccione un destinatario"
+                  [style]="{ width: '100%' }"
+                  [filter]="true"
+                  filterBy="fullName"
+                  [showClear]="true"
+                  (onChange)="saveDestinatario($event)"
+                >
+                  <ng-template let-destinatario pTemplate="item">
+                    <div
+                      class="flex align-items-center gap-2 justify-content-between"
+                    >
+                      {{ destinatario.fullName }}
+                      <span class="text-700"> {{ destinatario.cargo }}</span>
+                    </div>
+                  </ng-template></p-dropdown
+                >
+                <label for="nombreDestinatario">Nombre Destinatario</label>
+              </p-floatLabel>
+              <p-floatLabel>
+                <input
+                  [readOnly]="true"
+                  [style]="{ width: '100%' }"
+                  type="text"
+                  pInputText
+                  [disabled]="true"
+                  value="Cargo Destinatario"
+                  formControlName="cargoDestinatario"
+                  [readOnly]="true"
+                />
+                <label for="nombreDesticargoDestinatarionatario"
+                  >Cargo Destinatario</label
+                >
+              </p-floatLabel>
+              <p-floatLabel>
+                <textarea
+                  [style]="{ width: '100%' }"
+                  pInputTextarea
+                  formControlName="referencia"
+                  style="resize: none"
+                ></textarea>
+                <label for="referencia">Referencia</label>
+              </p-floatLabel>
+            </div>
+            <div class="flex pt-4 justify-content-end">
+              <p-button
+                label="Generar documento"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [disabled]="!formDocumento.valid"
+                (onClick)="nextCallback.emit(); generarPlantillaDocx()"
+              />
+            </div>
+          </div>
+        </ng-template>
+      </p-stepperPanel>
+      <p-stepperPanel header="Subir Archivo">
+        <ng-template
+          pTemplate="content"
+          let-nextCallback="nextCallback"
+          let-index="index"
+        >
+          <div class="grid">
+            <div class="col-6">
+              <p-fieldset
+                legend="Suba el Archivo Principal"
+                [style]="{ height: '100%' }"
+              >
+                <!-- <input
+                  type="file"
+                  (change)="onFileSelected($event)"
+                  accept="application/pdf"
+                /> -->
+
+                <div class="flex align-items-center justify-content-center">
+                  {{ archivoPrincipal }}
+                  @if (!uploading) {
+                    <p-fileUpload
+                      #pf1
+                      mode="basic"
+                      dropzone="true"
+                      chooseIcon="pi pi-upload"
+                      accept=".pdf"
+                      maxFileSize="5000000"
+                      (onSelect)="handleFileUpload($event, pf1)"
+                      [disabled]="archivoPrincipal"
+                      [auto]="true"
+                      chooseLabel="Suba archivo principal"
+                    />
+                  } @else {
+                    <p-progressSpinner
+                      ariaLabel="loading"
+                      animationDuration=".5s"
+                    />
+                  }
+                </div>
+              </p-fieldset>
+            </div>
+            <div class="col-6">
+              <p-fieldset
+                legend="Suba los archivos adjuntos"
+                [style]="{ height: '100%' }"
+              >
+                <div class="flex align-items-center justify-content-center">
+                  @if (uploading) {
+                    <p-progressSpinner
+                      ariaLabel="loading"
+                      animationDuration=".5s"
+                    />
+                  } @else if (archivosAdjuntos.length > 0) {
+                    <h1 class="text-primary">Archivos Subidos</h1>
+                  }
+                  @if (!(archivosAdjuntos.length > 0)) {
+                    <p-fileUpload
+                      #fu1
+                      mode="advanced"
+                      [multiple]="true"
+                      chooseIcon="pi pi-upload"
+                      accept="image/*"
+                      maxFileSize="5000000"
+                      [customUpload]="true"
+                      (uploadHandler)="handleFileUploadAdjuntos($event)"
+                      chooseLabel="Suba los archivos de anexos"
+                    />
+                  }
+                </div>
+              </p-fieldset>
+            </div>
+          </div>
+          <div class="flex pt-4 justify-content-end">
+            <p-button
+              label="Siguiente"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              [disabled]="!formDocumento.valid || !archivoPrincipal"
+              (onClick)="crearDocumento(nextCallback)"
+            />
+          </div>
+        </ng-template>
+      </p-stepperPanel>
+      @if (respondiendo) {
+        <p-stepperPanel header="Hoja de ruta">
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-index="index"
+          >
+            <div class="contenedor-formulario">
+              <div
+                class="flex flex-column row-gap-3 align-items-center justify-content-center h-full"
+              >
+                <h3>¿Que desea hacer con el documento?</h3>
+                <p-button
+                  label="Guardar Documento"
+                  pTooltip="Guarda el documento para usarlo luego"
+                  [disabled]="formDocumento.invalid"
+                  routerLink="/admin"
+                ></p-button>
+                <p-button
+                  label="Crear una nueva hoja de ruta"
+                  [disabled]="formDocumento.invalid"
+                  (onClick)="nextCallback.emit(); crearHojaRuta()"
+                ></p-button>
+                <p-button
+                  label="Reponder a una hoja de ruta"
+                  [disabled]="formDocumento.invalid"
+                  (onClick)="modalSelecionarHojaRuta = true"
+                ></p-button
+                ><p-dialog
+                  header="Selecione hoja de ruta"
+                  [(visible)]="modalSelecionarHojaRuta"
+                  [modal]="true"
+                  [style]="{ width: '50vw', height: '80vh' }"
+                >
+                  <div class="h-full flex flex-column">
+                    <div class="grid flex-grow-1">
+                      <div class="col-6 align-content-center">
+                        <div
+                          class="flex flex-column justify-content-center align-items-center h-8rem text-primary"
+                        >
+                          <i class="pi pi-file text-5xl"></i>
+                        </div>
+                        <p-dropdown
+                          [options]="pendientes"
+                          [(ngModel)]="hojaruta"
+                          [style]="{ width: '100%' }"
+                          [ngModelOptions]="{ standalone: true }"
+                          optionLabel="id"
+                          placeholder="Seleccione una hoja de ruta"
+                        >
+                          <ng-template let-hojaruta pTemplate="item">
+                            <div
+                              class="flex align-items-center flex-column drop"
+                            >
+                              <p class="">N°{{ hojaruta.id | padNumber: 5 }}</p>
+                              <p>
+                                <span class="font-light">Procedencia:</span>
+                                {{
+                                  hojaruta.historialMovimientos[0].procedencia
+                                    .fullName
+                                }}
+                                <span class="font-semibold">{{
+                                  hojaruta.historialMovimientos[0].procedencia
+                                    .cargo
+                                }}</span>
+                              </p>
+                              <p class="border-top-1 surface-border">
+                                <span class="font-light">Instruccion:</span>
+                                {{
+                                  hojaruta.historialMovimientos[0].instruccion
+                                }}
+                              </p>
+                              <p>
+                                <span class="font-light">Origen:</span>
+                                {{ hojaruta.emisor.fullName }}
+                                <span class="font-semibold">{{
+                                  hojaruta.emisor.cargo
+                                }}</span>
+                              </p>
+                            </div>
+                          </ng-template>
+                        </p-dropdown>
+                        <!-- {{ hojaruta | json }} -->
+                      </div>
+                      <div class="col-6">
+                        @if (hojaruta) {
+                          <p class="text-center text-primary text-2xl">
+                            Historial y Documentos de :
+                            <span class="font-bold">
+                              N°{{ hojaruta.id | padNumber: 5 }}</span
+                            >
+                          </p>
+
+                          @for (
+                            item of hojaruta.historialMovimientos;
+                            track item
+                          ) {
+                            <div>
+                              <p class="text-left text-primary text-2xl">
+                                {{ item.procedencia.fullName }}|{{
+                                  item.procedencia.cargo
+                                }}
+                              </p>
+                              <ul>
+                                @for (
+                                  archivo of item.documento.archivo;
+                                  track archivo
+                                ) {
+                                  <li
+                                    class="cursor-pointer text-xl"
+                                    (click)="
+                                      getdownloadUrl(archivo.archivo.key)
+                                    "
+                                  >
+                                    {{ archivo.tipo }} |<span>
+                                      {{ getFileType(archivo.archivo.tipo) }}
+                                    </span>
+                                  </li>
+                                }
+                              </ul>
+                            </div>
+                          }
+                        }
+                      </div>
+                    </div>
+                    <div class="flex justify-content-center align-items-center">
+                      <p-button
+                        label="Reponder a esta hoja de ruta"
+                        (onClick)="nextCallback.emit(); selecionarHojaRuta()"
+                      ></p-button>
+                    </div>
+                  </div>
+                </p-dialog>
+              </div>
+              <!-- <div class="flex pt-4 justify-content-end">
+            <p-button
+              label="Next"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              (onClick)="nextCallback.emit()"
+            />
+          </div> -->
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+      }
+      <p-stepperPanel header="Derivar Documento">
+        <ng-template
+          pTemplate="content"
+          let-nextCallback="nextCallback"
+          let-index="index"
+        >
+          <div class="contenedor-formulario">
+            <div
+              class="flex flex-column row-gap-3 align-items-center justify-content-center h-full"
+            >
+              <h3>¿Confimar envio?</h3>
+              <h4>Revisa los detalles de la hoja de ruta y el documento</h4>
+            </div>
+            <div class="grid">
+              <div class="col-5">
+                <p class="text-right">A:</p>
+              </div>
+              <div class="col-7">
+                <p>
+                  {{ formDocumento.value.destinatario }}|
+                  <span>{{ formDocumento.value.cargoDestinatario }}</span>
+                </p>
+              </div>
+              <div class="col-5">
+                <p class="text-right">De:</p>
+              </div>
+              <div class="col-7">
+                <p>
+                  {{ formDocumento.value.remitente }}|
+                  <span>{{ formDocumento.value.cargoRemitente }}</span>
+                </p>
+              </div>
+              <div class="col-5">
+                <p class="text-right">Referencia:</p>
+              </div>
+              <div class="col-7">
+                <p>
+                  {{ formDocumento.value.referencia }}
+                </p>
+              </div>
+              <div class="col-5">
+                <p class="text-right">Instruccion:</p>
+              </div>
+              <div class="col-7">
+                <p-dropdown
+                  [options]="instrucciones"
+                  [(ngModel)]="instruccionSeleccionada"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="Seleccione una instrucción"
+                  [editable]="true"
+                />
+              </div>
+            </div>
+            <div class="flex pt-4 justify-content-end">
+              <p-button
+                label="Derivar Documento"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                (onClick)="confimarDevivacion(nextCallback)"
+              />
+            </div>
+          </div>
+        </ng-template>
+      </p-stepperPanel>
+      <!-- <p-stepperPanel header="Derivar Documento">
+        <ng-template
+          pTemplate="content"
+          let-nextCallback="nextCallback"
+          let-index="index"
+        ></ng-template
+      ></p-stepperPanel> -->
+    </p-stepper>
+  </div>
+</form>
+
+<!-- ovelay documento principal -->
+<p-sidebar
+  [(visible)]="verDocumentoPrincipal"
+  [fullScreen]="true"
+  appendTo="body"
+  position="top"
+  [closeOnEscape]="true"
+  (onHide)="
+    verDocumentoPrincipal = false;
+    datosArchivoPrincipal
+      ? (archivoPrincipal = archivoPrincipal)
+      : (archivoPrincipal = null)
+  "
+>
+  <div class="w-full h-full flex flex-column">
+    <p class="text-center font-bold text-xl">{{ formDocumento.value.cite }}</p>
+    @if (pdfSrc) {
+      <pdf-viewer
+        [src]="pdfSrc"
+        [render-text]="true"
+        [show-borders]="true"
+        style="display: block; width: 100%; margin-bottom: 2rem; flex: 1"
+      >
+      </pdf-viewer>
+    }
+    <div class="flex justify-content-center align-items-center gap-2">
+      <p-button
+        label="Subir documento principal"
+        icon="pi pi-upload"
+        [loading]="uploading"
+        (onClick)="subitFileMinioArchivoPrincipal(archivoPrincipal!)"
+      ></p-button>
+      <p-button
+        label="Eliminar"
+        severity="danger"
+        icon="pi pi-trash"
+        (onClick)="uploading = true; uploading = false"
+      ></p-button>
+    </div>
+  </div>
+</p-sidebar>

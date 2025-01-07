@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "isBackground": true,
+      "script": "start",
+      "problemMatcher": [],
+      "label": "ng serve",
+      "detail": "ng serve",
+      "runOptions": { "runOn": "folderOpen" }
+    },
+    {
+      "label": "start backend",
+      "isBackground": true,
+      "type": "shell",
+      "command": "C:\\laragon\\laragon.exe && cd C:\\Users\\Otmars\\Documents\\backends\\corr-back && npm start",
+      "problemMatcher": [],
+      "detail": "NestJs",
+      "runOptions": { "runOn": "folderOpen" }
+    }
+  ]
+}

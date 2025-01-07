@@ -1,0 +1,23 @@
+img {
+  height: 3.5rem;
+}
+
+.header {
+  background-color: var(--surface-0);
+  box-shadow: var();
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 2px 16px hsla(0, 0%, 0%, .15);
+
+  padding: 10px 8rem;
+}
+
+.login {
+  backdrop-filter: blur(2px);
+}
+:host ::ng-deep .p-button.button_header {
+  font-size: 12px;
+}

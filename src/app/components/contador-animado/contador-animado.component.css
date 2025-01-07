@@ -1,0 +1,16 @@
+.contador {
+  font-weight: bold;
+  text-align: left;
+  transition:
+    transform 0.5s ease-in-out,
+    color 0.3s ease-in-out;
+  display: inline-block;
+}
+
+.contador.incrementando {
+  transform: scale(1.2); /* Hace que el número crezca al cambiar */
+}
+
+.contador.finalizado {
+  transform: scale(1); /* Restablece el tamaño del número */
+}

@@ -1,0 +1,276 @@
+<div class="dashboard fadein animation-duration-1000">
+  <div class="sidebar">
+    <div class="logo"></div>
+    <ul class="menu">
+      <li routerLink="/admin">
+        <a>
+          <i class="fas fa-house"></i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li routerLinkActive="active" routerLink="entrante">
+        <a>
+          @if (cantidadEntrante == 0) {
+            <i class="fas fa-inbox"></i>
+          } @else {
+            <i class="fas fa-inbox" pBadge [value]="cantidadEntrante"></i>
+          }
+          <span>Entrante</span>
+        </a>
+      </li>
+      <li routerLinkActive="active" routerLink="pendiente">
+        <a>
+          @if (cantidadEntrante > 0) {
+            <i
+              class="fas fa-business-time"
+              pBadge
+              [value]="cantidadPendientes"
+            ></i>
+          } @else {
+            <i class="fas fa-business-time"></i>
+          }
+          <span>Pendientes</span>
+        </a>
+      </li>
+      <li routerLinkActive="active" routerLink="enviado">
+        <a>
+          <i class="fas fa-check"></i>
+          <span>Enviados</span>
+        </a>
+      </li>
+      <li routerLinkActive="active" routerLink="archivo">
+        <a>
+          <i class="fas fa-box-archive"></i>
+          <span>Archivo</span>
+        </a>
+      </li>
+      <!-- <li routerLink="profile">
+        <a>
+          <i class="fas fa-user"></i>
+          <span>Perfil</span>
+        </a>
+      </li> -->
+      <li routerLinkActive="active" routerLink="buscar">
+        <a>
+          <i class="fas fa-search"></i>
+          <span>Buscar</span>
+        </a>
+      </li>
+      <li (click)="authService.logout()" class="logout">
+        <a href="#">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Cerrar Sesion</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex flex-column overflow-hidden main_content">
+    <div class="header_wrapper">
+      <div class="header_title">
+        <span>SICOFE</span>
+        <h2>Dashboard</h2>
+      </div>
+      <div class="user_info">
+        <div class="search_box">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" class="text" placeholder="Buscar" />
+        </div>
+        <div (click)="op.toggle($event)" class="cursor-pointer">
+          @if (user?.photoURL) {
+            <h1>ete</h1>
+            <p-avatar
+              [image]="user?.photoURL!"
+              styleClass="ml-3"
+              size="large"
+              shape="circle"
+              [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"
+            />
+          } @else if (user?.displayName) {
+            <p-avatar
+              [label]="getinitial()"
+              styleClass="ml-3"
+              size="large"
+              shape="circle"
+              [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"
+            />
+          } @else {
+            <p-avatar
+              icon="pi pi-user"
+              styleClass="ml-3"
+              size="large"
+              shape="circle"
+              [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"
+            />
+          }
+          <p-overlayPanel
+            #op
+            [showCloseIcon]="true"
+            [style]="{ width: '20rem' }"
+          >
+            <div
+              class="flex flex-column w-full align-items-center justify-content-center"
+            >
+              <p class="font-bold text-2xl text-center">
+                Hola
+                <span class="text-primary"> {{ user?.displayName }}</span>
+              </p>
+
+              <div class="cursor-pointer">
+                @if (user?.photoURL) {
+                  <p-avatar
+                    [image]="
+                      'https://minio-kokscc0scssowkwc0k8wk8kc.92.112.176.8.sslip.io/photospublic/pngwing.com(16).png'
+                    "
+                    styleClass=""
+                    size="xlarge"
+                    shape="circle"
+                    [style]="{
+                      'background-color': '#ece9fc',
+                      color: '#2a1261',
+                    }"
+                  />
+                } @else if (user?.displayName) {
+                  <p-avatar
+                    [label]="getinitial()"
+                    styleClass=""
+                    size="xlarge"
+                    shape="circle"
+                    [style]="{
+                      'background-color': '#ece9fc',
+                      color: '#2a1261',
+                    }"
+                  />
+                }@else{
+                  <p-avatar
+                    icon="pi pi-user"
+                    styleClass=""
+                    size="xlarge"
+                    shape="circle"
+                    [style]="{
+                      'background-color': '#ece9fc',
+                      color: '#2a1261',
+                    }"
+                  />
+                }
+              </div>
+              <p class="text-center text-600">{{ user?.email }}</p>
+              <p-button
+                class="w-full mt-3"
+                label="Cerrar Sesion"
+                [style]="{ width: '100%' }"
+                severity="danger"
+                size="small"
+                (onClick)="authService.logout()"
+              ></p-button>
+            </div>
+          </p-overlayPanel>
+        </div>
+      </div>
+    </div>
+    <div
+      class="card_container mb-3 p"
+      [ngClass]="{ hidden: this.router.url != '/admin' }"
+    >
+      <h3 class="main_title">Correspondencia</h3>
+      <div class="card_wrapper flex-wrap">
+        <div class="payment_card light_green flex-1">
+          <div class="card_header">
+            <div class="amount">
+              <span class="title">Entrante</span>
+              <span class="amount_value">
+                <app-contador-animado
+                  [cantidad]="cantidadEntrante"
+                ></app-contador-animado>
+              </span>
+            </div>
+            <i class="fas fa-inbox icon dark_green"></i>
+          </div>
+          <span class="card_detail">Correspondencia Nueva</span>
+        </div>
+        <div class="payment_card light_red flex-1">
+          <div class="card_header">
+            <div class="amount">
+              <span class="title">Pendientes</span>
+              <span class="amount_value">
+                <app-contador-animado
+                  [cantidad]="cantidadPendientes"
+                ></app-contador-animado>
+              </span>
+            </div>
+            <i class="fas fa-business-time icon dark_red"></i>
+          </div>
+          <span class="card_detail"> Correspondencia recibida </span>
+        </div>
+        <div class="payment_card light_blue flex-1">
+          <div class="card_header">
+            <div class="amount">
+              <span class="title">Enviados</span>
+              <span class="amount_value">
+                <app-contador-animado
+                  [cantidad]="cantidadEnviados"
+                ></app-contador-animado>
+              </span>
+            </div>
+            <i class="fas fa-check icon dark_blue"></i>
+          </div>
+          <span class="card_detail"> Correspondencia respondida </span>
+        </div>
+        <div class="payment_card light_purple flex-1">
+          <div class="card_header">
+            <div class="amount">
+              <span class="title">Archivo</span>
+              <span class="amount_value">
+                <app-contador-animado
+                  [cantidad]="cantidadArchivo"
+                ></app-contador-animado>
+              </span>
+            </div>
+            <i class="fas fa-box-archive icon dark_purple"></i>
+          </div>
+          <span class="card_detail"> Correspondencia archivada </span>
+        </div>
+      </div>
+    </div>
+    <!-- <div
+      class="flex-grow-1 card_container"
+      [ngClass]="{ hidden: this.router.url != '/admin' }"
+    >
+      <app-grafico class="text-center"></app-grafico>
+
+
+    </div> -->
+    <div class="h-full" [ngClass]="{ hidden: this.router.url != '/admin' }">
+      <div class="grid h-full">
+        <div class="col-8">
+          <div class="card_container h-full">
+            <app-grafico class="text-center"></app-grafico>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card_container h-full">
+            <!-- <h3 class="text-primary block">Elementos Recientes</h3> -->
+            <div
+              class="flex flex-row justify-content-between align-items-center"
+            >
+              <span class="text-primary text-lg">Notas Recientes</span>
+              <p-splitButton
+                label="Crear Nuevo"
+                severity="success"
+                [model]="items"
+                routerLink="nuevo"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex-grow-1 card_container"
+      [ngClass]="{ hidden: this.router.url == '/admin' }"
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

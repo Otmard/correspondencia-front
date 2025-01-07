@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css"; */
+@import "primeicons/primeicons.css";
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:wght@300;400&display=swap');
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* html{
+  font-size: 10px
+} */
+@layer reset, primeng;
+
+@layer reset {
+  .p-input-filled .p-inputtext:enabled:focus {
+    box-shadow: none;
+    background-color: #fff;
+    border-color: transparent;
+    background-size: 100% 2px, 100% 1px;
+  }
+}
+
+:root {
+  --primary-color: #e3001b;
+}
+
+/* @layer reset {
+  button,
+  input {
+    background-color: #00a244;
+  }
+} */
+@layer reset {
+  .p-dialog .p-dialog-content {
+    background: rgba(255, 255, 255, 0);
+  }
+}
+
+/* Estilo para el scroll en Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 12px; /* Cambia el ancho de la barra de desplazamiento */
+  height: 12px; /* Cambia el alto de la barra de desplazamiento horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Color de fondo de la pista */
+  border-radius: 10px; /* Bordes redondeados para la pista */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #8e44ad, #9b59b6); /* Gradiente morado */
+  border-radius: 10px; /* Bordes redondeados para el thumb */
+  border: 2px solid #fff; /* Borde blanco alrededor del thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #9b59b6, #8e44ad); /* Efecto hover en el thumb */
+}
+
+/* Estilo para el scroll en Firefox */
+* {
+  scrollbar-color: #8e44ad #f0f0f0; /* Color del thumb y la pista */
+  scrollbar-width: thin; /* Hacer la barra de desplazamiento más delgada */
+}

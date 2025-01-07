@@ -1,0 +1,24 @@
+<app-header class="header"></app-header>
+<div class="background-image"></div>
+<div class="main-container mx-8" >
+    <div class="grid  h-full">
+        <div class="col-6 ">
+            <div class="flex flex-column justify-content-center align-items-end h-full content_left">
+                <p class="text-primary text-7xl font-bold my-3 ">Bienvenido</p>
+                <p class="text-right ml-8 ">Lorem ipsum dolor, sit amet consectetur adipisicing elit. A reiciendis alias beatae animi vitae,
+                    itaque sed totam officiis error enim!</p>
+                    <div class="buttons flex gap-2">
+                        <p-button  icon="pi pi-user" [raised]="true" label="Ingresar"></p-button>
+                        <p-button severity="secondary"   [raised]="true"  icon="pi pi-send" label="Contactanos"></p-button>
+                    </div>
+            </div>
+        </div>
+        <div class="col-6 flex justify-content-center align-items-center h-full"> <!-- Flexbox para centrar la imagen -->
+            <img class="img-logo" src="../../assets/Logo FESUD HD.png" />
+        </div>
+    </div>
+    <app-noticias class="noticias"></app-noticias>
+</div>
+
+
+<!-- <app-noticias></app-noticias> -->

@@ -1,0 +1,54 @@
+:host ::ng-deep {
+  .product-item {
+    .product-item-content {
+      border: 1px solid var(--surface-d);
+      border-radius: 3px;
+      margin: 0.3rem;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .product-image {
+      width: 50%;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+  }
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  background-color: var(--surface-0);
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.card-container {
+  padding: 2rem;
+}
+
+.noti {
+  background-color: rgba(52, 52, 52, 0.292);
+}
+
+.button-next {
+  background-color: white;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+
+  // background-color: var(--surface-a);
+  color: var(--text-color-secondary);
+}
+.card-content {
+  // background-color: red;
+  padding: 1rem;
+}

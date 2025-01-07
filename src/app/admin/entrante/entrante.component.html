@@ -1,0 +1,154 @@
+<p-dataView #dv [value]="buzon" [layout]="layout">
+  <ng-template pTemplate="header">
+    <div class="flex justify-content-end">
+      <p-dataViewLayoutOptions />
+    </div>
+  </ng-template>
+  <ng-template pTemplate="list" let-hojaRuta>
+    <div class="grid grid-nogutter">
+      @for (item of hojaRuta; track item._id; let first = $first) {
+        <div class="col-12">
+          <div
+            class="grid"
+            [ngClass]="{ 'border-top-1 surface-border': !first }"
+          >
+            <div class="col-3 align-content-center">
+              <div
+                class="flex flex-column justify-content-center align-items-center h-8rem text-primary"
+              >
+                <i class="pi pi-file text-5xl"></i>
+                <span class="text-2xl font-bold mt-2"
+                  >N° {{ item.id | padNumber: 5 }}</span
+                >
+              </div>
+            </div>
+            <div class="col-6 align-content-center">
+              <div class="grid">
+                <span class="col-2 text-right font-semibold text-primary"
+                  >De:</span
+                >
+                <span class="col-10"
+                  >{{ item.historialMovimientos[0].procedencia.fullName }} |
+                  {{ item.historialMovimientos[0].procedencia.cargo }}</span
+                >
+                <span class="col-2 text-right font-semibold text-primary"
+                  >Instruccion:</span
+                >
+                <span class="col-10"
+                  >{{ item.historialMovimientos[0].instruccion }}
+                </span>
+                <span class="col-2 text-right font-semibold text-primary">
+                  Fecha:
+                </span>
+                <span class="col-10">{{ item.updatedAt | date : 'full' }} </span>
+                <span class="col-2 text-right font-semibold text-primary">
+                  Origen:
+                </span>
+                <span class="col-10"
+                  >{{ item.emisor.fullName }} | {{ item.emisor.cargo }}</span
+                >
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="flex flex-column">
+                <p class="font-light text-primary text-center">Acciones</p>
+                <p-button
+                  label="Recibir"
+                  icon="pi pi-check-square"
+                  [style]="{ width: '100%' }"
+                  (onClick)="recibir(item)"
+                />
+                <p-button
+                  label="Recibir y Responder"
+                  icon="pi pi-check-square"
+                  [style]="{ width: '100%' }"
+                  (onClick)="recibiryDerivar(item)"
+                  severity="secondary"
+                  class="mt-2"
+                />
+                <p-button
+                  class="mt-2"
+                  [style]="{ width: '100%' }"
+                  label="Recibir y archivar"
+                  icon="pi pi-folder-open"
+                  severity="help"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </ng-template>
+  <!-- <ng-template let-product pTemplate="grid" let-products>
+    <div class="grid grid-nogutter">
+      <div
+        class="col-12 sm:col-6 md:col-4 xl:col-6 p-2"
+        *ngFor="let product of products"
+      >
+        <div
+          class="p-4 border-1 surface-border surface-card border-round flex flex-column"
+        >
+          <div class="surface-50 flex justify-content-center border-round p-3">
+            <div class="relative mx-auto">
+              <img
+                class="border-round w-full"
+                [src]="
+                  'https://primefaces.org/cdn/primeng/images/demo/product/' +
+                  product.image
+                "
+                [alt]="product.name"
+                style="max-width: 300px"
+              />
+            </div>
+          </div>
+          <div class="pt-4">
+            <div
+              class="flex flex-row justify-content-between align-items-start gap-2"
+            >
+              <div>
+                <span class="font-medium text-secondary text-sm">{{
+                  product.category
+                }}</span>
+                <div class="text-lg font-medium text-900 mt-1">
+                  {{ product.name }}
+                </div>
+              </div>
+              <div class="surface-100 p-1" style="border-radius: 30px">
+                <div
+                  class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2"
+                  style="
+                    border-radius: 30px;
+                    box-shadow:
+                      0px 1px 2px 0px rgba(0, 0, 0, 0.04),
+                      0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+                  "
+                >
+                  <span class="text-900 font-medium text-sm">{{
+                    product.rating
+                  }}</span>
+                  <i class="pi pi-star-fill text-yellow-500"></i>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-column gap-4 mt-4">
+              <span class="text-2xl font-semibold">{{
+                '$' + product.price
+              }}</span>
+              <div class="flex gap-2">
+                <p-button
+                  icon="pi pi-shopping-cart"
+                  class="flex-auto md:flex-initial white-space-nowrap"
+                  label="Buy Now"
+                  [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
+                />
+                <p-button icon="pi pi-heart" [outlined]="true" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template> -->
+</p-dataView>
+
