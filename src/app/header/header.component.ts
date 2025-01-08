@@ -22,11 +22,18 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+closeLogin($event: boolean) {
+ if ($event) {
+  this.modalLogin=false
+ }
+}
+
   modalLogin: boolean = false;
   value1: number = 0;
   value2: number = 0;
   value3: number = 0;
   value4: number = 0;
+
   showLogin() {
     this.modalLogin = true;
   }

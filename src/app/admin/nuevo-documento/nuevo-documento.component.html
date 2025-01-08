@@ -39,7 +39,7 @@
                 </p-floatLabel>
               </div>
 
-              <p-floatLabel>
+              <!-- <p-floatLabel>
                 <p-dropdown
                   [options]="options"
                   formControlName="proceso"
@@ -49,6 +49,18 @@
                 >
                 </p-dropdown>
                 <label for="proceso">Proceso</label>
+              </p-floatLabel> -->
+              <p-floatLabel>
+                <p-dropdown
+                  [options]="tipo"
+                  formControlName="tipo"
+                  id="tipo"
+                  [style]="{ width: '100%' }"
+                  optionLabel="label"
+                  optionValue="value"
+                >
+                </p-dropdown>
+                <label for="tipo">Tipo</label>
               </p-floatLabel>
               <p-floatLabel>
                 <p-dropdown
@@ -58,6 +70,7 @@
                   [style]="{ width: '100%' }"
                   [filter]="true"
                   filterBy="fullName"
+                  formControlName="destinatario"
                   [showClear]="true"
                   (onChange)="saveDestinatario($event)"
                 >
@@ -184,15 +197,11 @@
             </div>
           </div>
           <div class="flex pt-4 justify-content-end">
-
             <p-button
               label="Siguiente"
               icon="pi pi-arrow-right"
               iconPos="right"
-              [disabled]="
-                !formDocumento.valid &&
-                !archivoPrincipal
-              "
+              [disabled]="!formDocumento.valid && !archivoPrincipal"
               (onClick)="crearDocumento(nextCallback)"
             />
           </div>

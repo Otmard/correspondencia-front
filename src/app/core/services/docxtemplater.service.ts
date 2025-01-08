@@ -16,14 +16,19 @@ export class DocxtemplaterService {
   http = inject(HttpClient);
   async generateDocument(data: any): Promise<void> {
     const preparedData = {
-      cite: data.cite,
-      destinatario: data.destinatario.fullName,
-      cargoDestinatario: data.destinatario.cargo || data.cargoDestinatario,
-      remitente: data.remitente,
-      cargoRemitente: data.cargoRemitente,
+      cite: String(data.cite).toUpperCase(),
+      destinatario: String(data.destinatario.fullName).toUpperCase(),
+      cargoDestinatario: String(
+        data.destinatario.cargo || data.cargoDestinatario,
+      ).toUpperCase(),
+      remitente: String(data.remitente).toUpperCase(),
+      cargoRemitente: String(data.cargoRemitente).toUpperCase(),
       referencia: String(data.referencia).toUpperCase(),
-      fecha: new Date().toLocaleDateString('es-ES'), // Fecha actual
+      fecha: new Date().toLocaleDateString('es-ES').toUpperCase(),
+      tipo: String(data.tipo).toUpperCase(), // Fecha actual
     };
+    console.log(preparedData);
+
     try {
       // Cargar la plantilla desde la carpeta de assets
       const template = await fetch('/assets/doc.docx').then((res) =>

@@ -70,10 +70,10 @@ export class DashboardComponent implements OnInit {
               this.cantidadEnviados = item.cantidad;
               break;
             case 'RECIBIDA':
-              this.cantidadEntrante = item.cantidad;
+              this.cantidadPendientes = item.cantidad;
               break;
             case 'DERIVADA':
-              this.cantidadPendientes = item.cantidad;
+              this.cantidadEntrante = item.cantidad;
               break;
             case 'ARCHIVADA':
               this.cantidadArchivo = item.cantidad;

@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { TestService } from './core/services/test.service';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -30,6 +31,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ButtonModule,
     ToastModule,
     ConfirmDialogModule,
+    ProgressSpinnerModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

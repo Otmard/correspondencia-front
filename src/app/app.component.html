@@ -1,5 +1,9 @@
 @if (loading) {
-  <div class="loading-text">Cargando...</div>
+  <div
+    class="w-screen h-screen flex justify-content-center align-items-center z-5 surface-0"
+  >
+    <p-progressSpinner ariaLabel="loading" />
+  </div>
 }
 
 <router-outlet></router-outlet> <p-toast></p-toast>

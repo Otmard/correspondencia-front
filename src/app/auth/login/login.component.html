@@ -22,7 +22,6 @@
         [(ngModel)]="emalil"
         pInputText
         class="w-full mb-3"
-
       />
 
       <label for="password1" class="block text-900 font-medium mb-2"
@@ -43,6 +42,7 @@
         [styleClass]="'w-full mb-3'"
         [feedback]="false"
         [inputStyle]="{ width: '100%' }"
+        placeholder="Contraseña"
       />
       <div class="flex align-items-center justify-content-between mb-6">
         <div class="flex align-items-center">
@@ -64,7 +64,7 @@
         label="Iniciar sesión"
         icon="pi pi-user"
         class="w-full"
-        (click)="authService.login(emalil, password)"
+        (click)="authService.login(emalil, password); enviarAlPadre()"
       ></button>
     </div>
   </div>

@@ -20,7 +20,7 @@
       </li>
       <li routerLinkActive="active" routerLink="pendiente">
         <a>
-          @if (cantidadEntrante > 0) {
+          @if (cantidadPendientes > 0) {
             <i
               class="fas fa-business-time"
               pBadge
@@ -141,7 +141,7 @@
                       color: '#2a1261',
                     }"
                   />
-                }@else{
+                } @else {
                   <p-avatar
                     icon="pi pi-user"
                     styleClass=""
@@ -174,7 +174,7 @@
     >
       <h3 class="main_title">Correspondencia</h3>
       <div class="card_wrapper flex-wrap">
-        <div class="payment_card light_green flex-1">
+        <div class="payment_card light_green flex-1" routerLink="entrante">
           <div class="card_header">
             <div class="amount">
               <span class="title">Entrante</span>
@@ -188,7 +188,7 @@
           </div>
           <span class="card_detail">Correspondencia Nueva</span>
         </div>
-        <div class="payment_card light_red flex-1">
+        <div class="payment_card light_red flex-1" routerLink="pendiente">
           <div class="card_header">
             <div class="amount">
               <span class="title">Pendientes</span>
@@ -202,7 +202,7 @@
           </div>
           <span class="card_detail"> Correspondencia recibida </span>
         </div>
-        <div class="payment_card light_blue flex-1">
+        <div class="payment_card light_blue flex-1" routerLink="enviado">
           <div class="card_header">
             <div class="amount">
               <span class="title">Enviados</span>
@@ -216,7 +216,7 @@
           </div>
           <span class="card_detail"> Correspondencia respondida </span>
         </div>
-        <div class="payment_card light_purple flex-1">
+        <div class="payment_card light_purple flex-1" routerLink="archivo">
           <div class="card_header">
             <div class="amount">
               <span class="title">Archivo</span>
@@ -248,18 +248,20 @@
           </div>
         </div>
         <div class="col-4">
-          <div class="card_container h-full">
+          <div class="card_container h-full boton_nuevo">
             <!-- <h3 class="text-primary block">Elementos Recientes</h3> -->
             <div
-              class="flex flex-row justify-content-between align-items-center"
+              class="flex flex-column justify-content-center align-items-center h-full nuevo_doc"
+              routerLink="nuevo"
             >
-              <span class="text-primary text-lg">Notas Recientes</span>
+              <i class="pi pi-file-plus"></i>
+              <span class="">Nuevo Documento</span>
+              <!-- <span class="text-primary text-lg">Notas Recientes</span>
               <p-splitButton
                 label="Crear Nuevo"
                 severity="success"
                 [model]="items"
-                routerLink="nuevo"
-              />
+              /> -->
             </div>
           </div>
         </div>

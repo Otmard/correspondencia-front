@@ -40,7 +40,7 @@ import { FilesService } from '../../core/services/files.service';
 import { HojasRutaService } from '../../core/services/hojas-ruta.service';
 import { DocumentoService } from '../../core/services/documento.service';
 import { TooltipModule } from 'primeng/tooltip';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PadNumberPipe } from '../../core/pipe/pad-number.pipe';
 import { GeneratePdfService } from '../../core/services/generate-pdf.service';
 
@@ -84,6 +84,7 @@ export class NuevoDocumentoComponent implements OnInit {
   confirmationService = inject(ConfirmationService);
   hojaruta!: HojaRuta;
   hojarutaNueva = false;
+  router = inject(Router);
 
   getdownloadUrl(arg0: string) {
     this.minioService
@@ -116,7 +117,7 @@ export class NuevoDocumentoComponent implements OnInit {
 
   crearDocumento(nextCallback: any) {
     this.confirmationService.confirm({
-      message: '¿Confirma la creación del documento?',
+      message: '¿Confirma la creación del documento? ',
       header: 'Confirmacion',
       icon: 'pi pi-question-circle',
       rejectButtonStyleClass: 'p-button-text',
@@ -128,6 +129,8 @@ export class NuevoDocumentoComponent implements OnInit {
             archivoPrincipal: this.datosArchivoPrincipal.id,
             adjuntos: this.idsArchivosAdjuntos,
             referencia: this.formDocumento.value.referencia!,
+            tipo: this.formDocumento.value.tipo!,
+            // proceso: this.formDocumento.value.proceso!,
           })
           .subscribe((res) => {
             this.documento = res;
@@ -160,15 +163,15 @@ export class NuevoDocumentoComponent implements OnInit {
             documento: this.documento.id,
           })
           .subscribe((res) => {
-            console.log(res);
             if (this.hojarutaNueva) {
               this.generatePdfService.genrarHojaRuta(res);
+              this.router.navigate(['/admin']);
             }
           });
         this.messageService.add({
           severity: 'info',
-          summary: 'Confirmed',
-          detail: 'You have accepted',
+          summary: 'Hoja de ruta generada correctamente',
+          detail: 'Imprime la hoja de ruta para su uso.',
         });
       },
       reject: () => {
@@ -340,7 +343,7 @@ export class NuevoDocumentoComponent implements OnInit {
   saveDestinatario($event: DropdownChangeEvent) {
     this.Selectdestinatario = $event.value;
     this.formDocumento.patchValue({
-      destinatario: $event.value.fullName,
+      // destinatario: $event.value.fullName,
       cargoDestinatario: $event.value.cargo,
     });
   }
@@ -383,11 +386,19 @@ export class NuevoDocumentoComponent implements OnInit {
 
   formDocumento = this.fb.group({
     cite: ['', Validators.required],
-    proceso: ['', Validators.required],
+    // proceso: ['', Validators.required],
     destinatario: ['', Validators.required],
     cargoDestinatario: ['', Validators.required],
     referencia: ['', Validators.required],
     remitente: ['', Validators.required],
     cargoRemitente: ['', Validators.required],
+    tipo: ['', Validators.required],
   });
+  tipo = [
+    { label: 'Nota Interna', value: 'NOTA INTERNA' },
+    {
+      label: 'Informe',
+      value: 'INFORME',
+    },
+  ];
 }

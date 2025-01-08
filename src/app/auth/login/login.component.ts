@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -17,7 +17,7 @@ import { NgClass } from '@angular/common';
     RouterLink,
     FormsModule,
     PasswordModule,
-    NgClass
+    NgClass,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -26,4 +26,9 @@ export class LoginComponent {
   emalil!: string;
   password!: string;
   authService = inject(AuthService);
+  @Output() closelogin = new EventEmitter<boolean>();
+
+  enviarAlPadre() {
+    this.closelogin.emit(true);
+  }
 }

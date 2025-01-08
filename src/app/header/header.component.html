@@ -32,6 +32,6 @@
   [dismissableMask]="true"
 >
   <ng-template pTemplate="headless">
-    <app-login class="login"></app-login>
+    <app-login class="login" (closelogin)="closeLogin($event)"></app-login>
   </ng-template>
 </p-dialog>

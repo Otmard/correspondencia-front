@@ -18,6 +18,8 @@ export class DocumentoService {
       archivoPrincipal: number;
       adjuntos: number[];
       referencia: string;
+      tipo:string
+      // proceso:string
     }>,
   ): Observable<Documento> {
     return this.http.post<Documento>(this.url, value);

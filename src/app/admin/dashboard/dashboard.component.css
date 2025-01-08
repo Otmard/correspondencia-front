@@ -22,7 +22,8 @@ h2 {
   color: #fff;
   overflow: hidden;
   transition: width 0.5s linear;
-  background: rgba(113, 99, 186, 255);
+  /* background: rgba(113, 99, 186, 255); */
+  background: var(--primary-color);
 }
 
 .sidebar:hover {
@@ -195,6 +196,9 @@ h2 {
   border-radius: 50%;
   font-size: 1.5rem;
   background: red;
+  display: flex;
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
 }
 .card_detail {
   font-size: 15px;
@@ -239,4 +243,30 @@ h2 {
   .payment_card {
     /* flex: 1 1 50%; */
   }
+}
+.nuevo_doc {
+  background-color: #fff;
+  border-radius: 10px;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  cursor: pointer;
+}
+.nuevo_doc i {
+  font-size: 10rem;
+  color: var(--primary-color);
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.nuevo_doc span {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  color: var(--primary-color);
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.nuevo_doc:hover {
+  background-color: var(--primary-color);
+}
+.nuevo_doc:hover i,
+.nuevo_doc:hover span {
+  color: #fff;
 }
