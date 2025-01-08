@@ -17,6 +17,7 @@ export class DocumentoService {
       cite: string;
       archivoPrincipal: number;
       adjuntos: number[];
+      referencia: string;
     }>,
   ): Observable<Documento> {
     return this.http.post<Documento>(this.url, value);

@@ -31,13 +31,18 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { environment } from '../../../environments/environment';
-import { BuzonHojaRuta, HistorialMovimiento, HojaRuta } from '../../core/models/hojaRuta';
+import {
+  BuzonHojaRuta,
+  HistorialMovimiento,
+  HojaRuta,
+} from '../../core/models/hojaRuta';
 import { FilesService } from '../../core/services/files.service';
 import { HojasRutaService } from '../../core/services/hojas-ruta.service';
 import { DocumentoService } from '../../core/services/documento.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterLink } from '@angular/router';
 import { PadNumberPipe } from '../../core/pipe/pad-number.pipe';
+import { GeneratePdfService } from '../../core/services/generate-pdf.service';
 
 @Component({
   selector: 'app-nuevo-documento',
@@ -68,6 +73,18 @@ import { PadNumberPipe } from '../../core/pipe/pad-number.pipe';
   styleUrl: './nuevo-documento.component.css',
 })
 export class NuevoDocumentoComponent implements OnInit {
+  @ViewChild('pf1') fileUpload!: FileUpload; // Captura el componente p-fileUpload
+
+  documentoService = inject(DocumentoService);
+  documento!: Documento;
+  generatePdfService = inject(GeneratePdfService);
+  fb = inject(FormBuilder);
+  hojaRutaService = inject(HojasRutaService);
+  messageService = inject(MessageService);
+  confirmationService = inject(ConfirmationService);
+  hojaruta!: HojaRuta;
+  hojarutaNueva = false;
+
   getdownloadUrl(arg0: string) {
     this.minioService
       .generateDownloadUrl(environment.bucketDocumento, arg0)
@@ -75,9 +92,11 @@ export class NuevoDocumentoComponent implements OnInit {
         window.open(res, '_blank');
       });
   }
-  getFileType(mimeType:string) {
+
+  getFileType(mimeType: string) {
     return mimeType.split('/')[1];
   }
+
   getProcedencia(procedencia: HistorialMovimiento[]) {
     console.log(procedencia);
     const elementoConIdMasAlto = procedencia.reduce(
@@ -86,6 +105,7 @@ export class NuevoDocumentoComponent implements OnInit {
     );
     return elementoConIdMasAlto;
   }
+
   cargarPendientes() {
     this.hojaRutaService
       .getPendientes(this.currentUser.uuid)
@@ -93,10 +113,7 @@ export class NuevoDocumentoComponent implements OnInit {
         this.pendientes = res;
       });
   }
-  @ViewChild('pf1') fileUpload!: FileUpload; // Captura el componente p-fileUpload
 
-  documentoService = inject(DocumentoService);
-  documento!: Documento;
   crearDocumento(nextCallback: any) {
     this.confirmationService.confirm({
       message: '¿Confirma la creación del documento?',
@@ -110,6 +127,7 @@ export class NuevoDocumentoComponent implements OnInit {
             cite: this.formDocumento.value.cite!,
             archivoPrincipal: this.datosArchivoPrincipal.id,
             adjuntos: this.idsArchivosAdjuntos,
+            referencia: this.formDocumento.value.referencia!,
           })
           .subscribe((res) => {
             this.documento = res;
@@ -123,7 +141,7 @@ export class NuevoDocumentoComponent implements OnInit {
       },
     });
   }
-  confirmationService = inject(ConfirmationService);
+
   confimarDevivacion(_t134: any) {
     this.confirmationService.confirm({
       message: '¿Confima la derivacion de la hoja de ruta?',
@@ -143,6 +161,9 @@ export class NuevoDocumentoComponent implements OnInit {
           })
           .subscribe((res) => {
             console.log(res);
+            if (this.hojarutaNueva) {
+              this.generatePdfService.genrarHojaRuta(res);
+            }
           });
         this.messageService.add({
           severity: 'info',
@@ -159,14 +180,11 @@ export class NuevoDocumentoComponent implements OnInit {
         });
       },
     });
-    console.log(_t134);
-    _t134.emit();
   }
 
   presionounateclas($event: Event) {
     console.log($event);
   }
-  hojaRutaService = inject(HojasRutaService);
   modalSelecionarHojaRuta!: boolean;
   instrucciones = [
     'Para Su Conocimiento',
@@ -179,14 +197,16 @@ export class NuevoDocumentoComponent implements OnInit {
   selecionarHojaRuta() {
     throw new Error('Method not implemented.');
   }
-  hojaruta!: HojaRuta;
 
   crearHojaRuta() {
+    this.hojarutaNueva = true;
     this.hojaRutaService
       .crearHojaRuta({
         emisorId: this.currentUser.uuid,
         responsableActualId: this.currentUser.uuid,
         estado: 'EMITIDA',
+        referencia: this.formDocumento.value.referencia!,
+        cite: this.formDocumento.value.cite!,
       })
       .subscribe(
         (res) => {
@@ -206,6 +226,7 @@ export class NuevoDocumentoComponent implements OnInit {
   idsArchivosAdjuntos: number[] = [];
 
   handleFileUploadAdjuntos($event: FileUploadHandlerEvent) {
+    this.archivosAdjuntos = $event.files;
     $event.files.forEach((element) => {
       this.minioService
         .uploadFileAdjunto(
@@ -242,9 +263,7 @@ export class NuevoDocumentoComponent implements OnInit {
           },
         );
     });
-    this.archivosAdjuntos = $event.files;
   }
-  messageService = inject(MessageService);
   verDocumentoPrincipal: any;
 
   pdfSrc: any;
@@ -339,9 +358,8 @@ export class NuevoDocumentoComponent implements OnInit {
   ngOnInit() {
     console.log(history.state);
     if (history.state.id) {
-
       this.respondiendo = false;
-      this.hojaruta = history.state
+      this.hojaruta = history.state;
     }
 
     this.docxtemplaterService.getNextCite().subscribe((res: NuevoDocumento) => {
@@ -355,7 +373,7 @@ export class NuevoDocumentoComponent implements OnInit {
       this.currentUser = res.user;
     });
   }
-  fb = inject(FormBuilder);
+
   options: any[] | undefined = [
     { label: 'Categoria 1', value: 'categoria1' },
     { label: 'Categoria 2', value: 'categoria2' },

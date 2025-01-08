@@ -1,5 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent, RouterLink, RouterOutlet } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+  RouterEvent,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { PrimeNGConfig } from 'primeng/api';
 import { NoticiasComponent } from './noticias/noticias.component';
@@ -49,6 +58,8 @@ export class AppComponent implements OnInit {
   testService = inject(TestService);
   ngOnInit() {
     this.primengConfig.ripple = true;
+    this.primengConfig.translation.upload = 'Subir Archivos';
+    this.primengConfig.translation.cancel = 'Cancelar';
     // this.testService.getData().subscribe((data) => console.log(data));
   }
 }

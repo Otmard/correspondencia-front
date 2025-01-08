@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css"; */
-@import "primeicons/primeicons.css";
+@import 'primeicons/primeicons.css';
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:wght@300;400&display=swap');
 body {
   padding: 0;
@@ -18,7 +18,9 @@ body {
     box-shadow: none;
     background-color: #fff;
     border-color: transparent;
-    background-size: 100% 2px, 100% 1px;
+    background-size:
+      100% 2px,
+      100% 1px;
   }
 }
 
@@ -56,11 +58,42 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg, #9b59b6, #8e44ad); /* Efecto hover en el thumb */
+  background: linear-gradient(
+    45deg,
+    #9b59b6,
+    #8e44ad
+  ); /* Efecto hover en el thumb */
 }
 
 /* Estilo para el scroll en Firefox */
 * {
   scrollbar-color: #8e44ad #f0f0f0; /* Color del thumb y la pista */
   scrollbar-width: thin; /* Hacer la barra de desplazamiento más delgada */
+}
+html {
+  font-size: 14px; /* Tamaño base por defecto */
+}
+
+@media (max-width: 1200px) {
+  html {
+    font-size: 12px; /* Reducir ligeramente para pantallas grandes pero más pequeñas que 1200px */
+  }
+}
+
+@media (max-width: 992px) {
+  html {
+    font-size: 12px; /* Ajustar para tablets o pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 13px; /* Reducir más para pantallas pequeñas (móviles grandes) */
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 12px; /* Tamaño más pequeño para móviles pequeños */
+  }
 }

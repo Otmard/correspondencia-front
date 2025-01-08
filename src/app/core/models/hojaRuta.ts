@@ -16,6 +16,8 @@ export interface HojaRuta {
   id: number;
   estado: string;
   prioridad: string;
+  referencia: string;
+  cite: string;
   deletedAt: null;
   createdAt: Date;
   updatedAt: Date;
@@ -23,8 +25,6 @@ export interface HojaRuta {
   emisor: User;
   responsableActual: User;
 }
-
-
 
 export interface HistorialMovimiento {
   id: number;
@@ -38,33 +38,31 @@ export interface HistorialMovimiento {
 }
 
 export interface Documento {
-  id:        number;
-  cite:      string;
-  tipo:      string;
+  id: number;
+  cite: string;
+  tipo: string;
   deletedAt: null;
   createdAt: Date;
   updatedAt: Date;
-  archivo:   ArchivoElement[];
+  archivo: ArchivoElement[];
 }
 
 export interface ArchivoElement {
-  id:      number;
-  tipo:    string;
+  id: number;
+  tipo: string;
   archivo: ArchivoArchivo;
 }
 
 export interface ArchivoArchivo {
-  id:        number;
-  key:       string;
-  bucket:    string;
-  tipo:      string;
-  url:       null;
+  id: number;
+  key: string;
+  bucket: string;
+  tipo: string;
+  url: null;
   deletedAt: null;
   createdAt: Date;
   updatedAt: Date;
 }
-
-
 
 export interface BuzonHojaRuta {
   id: number;
@@ -76,4 +74,3 @@ export interface BuzonHojaRuta {
   historialMovimientos: HistorialMovimiento;
   emisor: User;
 }
-

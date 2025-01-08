@@ -2,6 +2,7 @@ export interface Documento {
   cite: string;
   emisor: User;
   id: number;
+  referencia:string
   deletedAt: null;
   createdAt: Date;
   updatedAt: Date;

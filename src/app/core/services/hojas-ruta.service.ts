@@ -15,6 +15,8 @@ export class HojasRutaService {
       emisorId: string;
       responsableActualId: string;
       estado: string;
+      referencia: string;
+      cite: string;
     }>,
   ): Observable<HojaRuta> {
     return this.http.post<HojaRuta>(this.url, value);

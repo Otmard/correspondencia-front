@@ -25,6 +25,8 @@
     "chart.js": "^4.4.7",
     "docxtemplater": "^3.55.5",
     "file-saver": "^2.0.5",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
     "ng2-pdf-viewer": "^10.4.0",
     "pizzip": "^3.1.7",
     "primeflex": "^3.3.1",

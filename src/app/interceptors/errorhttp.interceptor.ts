@@ -16,6 +16,7 @@ export const errorhttpInterceptor: HttpInterceptorFn = (req, next) => {
         summary: 'Error',
         detail:
           error.error?.message || 'Hubo un problema al procesar la solicitud.',
+        closable: true,
       });
       if (error.error instanceof ErrorEvent) {
         errorMessage = `Error: ${error.error.message}`;

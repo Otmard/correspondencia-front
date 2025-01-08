@@ -13,28 +13,32 @@
         >
           <div class="contenedor-formulario">
             <div class="flex flex-column row-gap-3">
-              <p-floatLabel>
-                <input
-                  [style]="{ width: '100%' }"
-                  type="text"
-                  pInputText
-                  [readOnly]="true"
-                  value="Nombre del usuario Actual"
-                  formControlName="remitente"
-                />
-                <label for="nombreDestinatario">Nombre Remitente</label>
-              </p-floatLabel>
-              <p-floatLabel>
-                <input
-                  [style]="{ width: '100%' }"
-                  type="text"
-                  pInputText
-                  value="Cargo del usuario Actual"
-                  formControlName="cargoRemitente"
-                  [readOnly]="true"
-                />
-                <label for="nombreDestinatario">Cargo Remitente</label>
-              </p-floatLabel>
+              <div class="flex column-gap-3">
+                <p-floatLabel class="flex-auto bg-blue-200">
+                  <input
+                    [style]="{ width: '100%' }"
+                    type="text"
+                    pInputText
+                    [readOnly]="true"
+                    value="Nombre del usuario Actual"
+                    formControlName="remitente"
+                  />
+                  <label for="nombreDestinatario">Nombre Remitente</label>
+                </p-floatLabel>
+
+                <p-floatLabel class="flex-auto bg-blue-200">
+                  <input
+                    [style]="{ width: '100%' }"
+                    type="text"
+                    pInputText
+                    value="Cargo del usuario Actual"
+                    formControlName="cargoRemitente"
+                    [readOnly]="true"
+                  />
+                  <label for="nombreDestinatario">Cargo Remitente</label>
+                </p-floatLabel>
+              </div>
+
               <p-floatLabel>
                 <p-dropdown
                   [options]="options"
@@ -114,7 +118,7 @@
           <div class="grid">
             <div class="col-6">
               <p-fieldset
-                legend="Suba el Archivo Principal"
+                legend="Archivo Principal"
                 [style]="{ height: '100%' }"
               >
                 <!-- <input
@@ -123,8 +127,9 @@
                   accept="application/pdf"
                 /> -->
 
-                <div class="flex align-items-center justify-content-center">
-                  {{ archivoPrincipal }}
+                <div
+                  class="flex align-items-center justify-content-center h-8rem"
+                >
                   @if (!uploading) {
                     <p-fileUpload
                       #pf1
@@ -149,7 +154,7 @@
             </div>
             <div class="col-6">
               <p-fieldset
-                legend="Suba los archivos adjuntos"
+                legend="Archivos adjuntos"
                 [style]="{ height: '100%' }"
               >
                 <div class="flex align-items-center justify-content-center">
@@ -171,7 +176,7 @@
                       maxFileSize="5000000"
                       [customUpload]="true"
                       (uploadHandler)="handleFileUploadAdjuntos($event)"
-                      chooseLabel="Suba los archivos de anexos"
+                      chooseLabel="Suba los archivos adjuntos"
                     />
                   }
                 </div>
@@ -179,11 +184,15 @@
             </div>
           </div>
           <div class="flex pt-4 justify-content-end">
+
             <p-button
               label="Siguiente"
               icon="pi pi-arrow-right"
               iconPos="right"
-              [disabled]="!formDocumento.valid || !archivoPrincipal"
+              [disabled]="
+                !formDocumento.valid &&
+                !archivoPrincipal
+              "
               (onClick)="crearDocumento(nextCallback)"
             />
           </div>

@@ -10,8 +10,10 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { errorhttpInterceptor } from './interceptors/errorhttp.interceptor';
+import { PadNumberPipe } from './core/pipe/pad-number.pipe';
 export const appConfig: ApplicationConfig = {
   providers: [
+    PadNumberPipe,
     MessageService,
     ConfirmationService,
     provideHttpClient(withInterceptors([errorhttpInterceptor])),
