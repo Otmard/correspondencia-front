@@ -341,10 +341,20 @@ export class NuevoDocumentoComponent implements OnInit {
   }
   Selectdestinatario!: User;
   saveDestinatario($event: DropdownChangeEvent) {
-    this.Selectdestinatario = $event.value;
+    console.log($event.value);
+    console.log(this.destinatarios);
+    const buscarPorNombre = (nombre: string) => {
+      return this.destinatarios.find(
+        (destinatario) => destinatario.fullName === nombre,
+      );
+    };
+
+    // Ejemplo de uso
+    const resultado = buscarPorNombre($event.value);
+    this.Selectdestinatario = resultado!;
     this.formDocumento.patchValue({
       // destinatario: $event.value.fullName,
-      cargoDestinatario: $event.value.cargo,
+      cargoDestinatario: resultado?.cargo,
     });
   }
 

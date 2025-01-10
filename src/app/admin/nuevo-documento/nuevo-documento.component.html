@@ -66,6 +66,7 @@
                 <p-dropdown
                   [options]="destinatarios"
                   optionLabel="fullName"
+                  optionValue="fullName"
                   placeholder="Seleccione un destinatario"
                   [style]="{ width: '100%' }"
                   [filter]="true"
@@ -425,6 +426,7 @@
         ></ng-template
       ></p-stepperPanel> -->
     </p-stepper>
+    {{ formDocumento.value.destinatario|json }}
   </div>
 </form>
 

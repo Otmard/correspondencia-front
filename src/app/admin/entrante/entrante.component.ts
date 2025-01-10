@@ -8,10 +8,12 @@ import { list } from '@angular/fire/storage';
 import { DatePipe, JsonPipe, NgClass } from '@angular/common';
 import { Auth, getAuth } from '@angular/fire/auth';
 import { PadNumberPipe } from '../../core/pipe/pad-number.pipe';
+import { BuzonVacioComponent } from '../../components/buzon-vacio/buzon-vacio.component';
 @Component({
   selector: 'app-entrante',
   standalone: true,
   imports: [
+    BuzonVacioComponent,
     PadNumberPipe,
     JsonPipe,
     DataViewModule,

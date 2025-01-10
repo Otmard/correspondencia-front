@@ -8,6 +8,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { TagModule } from 'primeng/tag';
 import { PadNumberPipe } from '../../core/pipe/pad-number.pipe';
 import { Router } from '@angular/router';
+import { BuzonVacioComponent } from '../../components/buzon-vacio/buzon-vacio.component';
 
 @Component({
   selector: 'app-pendiente',
@@ -20,6 +21,7 @@ import { Router } from '@angular/router';
     TagModule,
     NgClass,
     DatePipe,
+    BuzonVacioComponent,
   ],
   templateUrl: './pendiente.component.html',
   styleUrl: './pendiente.component.css',
@@ -27,7 +29,7 @@ import { Router } from '@angular/router';
 export class PendienteComponent implements OnInit {
   router = inject(Router);
   responderHojaRuta(_t12: BuzonHojaRuta) {
-    this.router.navigate(['/admin/nuevo'], { state:_t12 });
+    this.router.navigate(['/admin/nuevo'], { state: _t12 });
   }
   hojasRutaService = inject(HojasRutaService);
   pendientes: BuzonHojaRuta[] = [];

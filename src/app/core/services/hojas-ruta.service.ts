@@ -47,4 +47,7 @@ export class HojasRutaService {
   getstats(idUser: string): Observable<any> {
     return this.http.get<any>(this.url + '/stats/' + idUser);
   }
+  getDerivados(idUser: string): Observable<any> {
+    return this.http.get<any>(this.url + '/derivadas/' + idUser);
+  }
 }
