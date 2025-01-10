@@ -35,6 +35,7 @@ export class EntranteComponent implements OnInit {
       .subscribe((res) => {
         console.log(res);
         this.loadBuzon();
+        this.hojasRutaService.triggerReload();
       });
   }
   currentUser = getAuth().currentUser;

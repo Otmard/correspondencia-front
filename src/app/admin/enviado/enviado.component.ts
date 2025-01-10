@@ -25,8 +25,10 @@ import { getAuth } from '@angular/fire/auth';
 })
 export class EnviadoComponent implements OnInit {
   hojasRutaService = inject(HojasRutaService);
-  cancelar(_t12: HojaRuta) {
-    throw new Error('Method not implemented.');
+  cancelar(hojaRuta: HojaRuta) {
+    this.hojasRutaService.cancelar(hojaRuta.historialMovimientos[0].id).subscribe((res) => {
+      this.loadEnviados();
+    });
   }
   enviados: HojaRuta[] = [];
   layout: 'list' | 'grid' = 'list';
@@ -41,4 +43,5 @@ export class EnviadoComponent implements OnInit {
         this.enviados = res;
       });
   }
+
 }

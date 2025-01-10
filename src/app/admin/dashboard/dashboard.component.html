@@ -1,7 +1,7 @@
-<div class="dashboard fadein animation-duration-1000">
+<div class="dashboard fadein animation-duration-500">
   <div class="sidebar">
     <div class="logo"></div>
-    <ul class="menu">
+    <ul class="menu" (click)="hojasRutaService.triggerReload()">
       <li routerLink="/admin">
         <a>
           <i class="fas fa-house"></i>

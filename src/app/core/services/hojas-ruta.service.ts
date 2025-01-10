@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BuzonHojaRuta, HojaRuta } from '../models/hojaRuta';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 export class HojasRutaService {
   url = environment.backendUrl + '/hojas-ruta';
   http = inject(HttpClient);
+  private reloadDataSubject = new Subject<void>();
+  reloadData$ = this.reloadDataSubject.asObservable();
   crearHojaRuta(
     value: Partial<{
       emisorId: string;
@@ -49,5 +51,22 @@ export class HojasRutaService {
   }
   getDerivados(idUser: string): Observable<any> {
     return this.http.get<any>(this.url + '/derivadas/' + idUser);
+  }
+  cancelar(idHistorial: number) {
+    return this.http.post<any>(this.url + '/cancelar-derivar/', {
+      idHistorial,
+    });
+  }
+  triggerReload() {
+    this.reloadDataSubject.next();
+  }
+  getArchivadas(idUser: string): Observable<any> {
+    return this.http.get<any>(this.url + '/archivadas/' + idUser);
+  }
+  archivar(idHoja:number, idUser: string): Observable<any> {
+    return this.http.post<any>(this.url + '/archivar/', {
+      id:idHoja,
+      idUser,
+    });
   }
 }

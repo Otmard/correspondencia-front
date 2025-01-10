@@ -1,1 +1,69 @@
-<p>archivo works!</p>
+<p-dataView #dv [value]="archivadas" [layout]="layout">
+  <ng-template pTemplate="header">
+    <div class="flex justify-content-end">
+      <p-dataViewLayoutOptions />
+    </div>
+  </ng-template>
+  <ng-template pTemplate="list" let-hojaRuta>
+    <div class="grid grid-nogutter">
+      @for (item of hojaRuta; track item._id; let first = $first) {
+        <div class="col-12">
+          <div
+            class="grid"
+            [ngClass]="{ 'border-top-1 surface-border': !first }"
+          >
+            <div class="col-3 align-content-center">
+              <div
+                class="flex flex-column justify-content-center align-items-center h-8rem text-primary"
+              >
+                <i class="pi pi-file text-5xl"></i>
+                <span class="text-2xl font-bold mt-2"
+                  >N° {{ item.id | padNumber: 5 }}</span
+                >
+              </div>
+            </div>
+            <div class="col-6 align-content-center">
+              <div class="grid">
+                <span class="col-2 text-right font-semibold text-primary"
+                  >De:</span
+                >
+                <span class="col-10"
+                  >{{ item.historialMovimientos[0].procedencia.fullName }} |
+                  {{ item.historialMovimientos[0].procedencia.cargo }}</span
+                >
+                <span class="col-2 text-right font-semibold text-primary"
+                  >Instruccion:</span
+                >
+                <span class="col-10"
+                  >{{ item.historialMovimientos[0].instruccion }}
+                </span>
+                <span class="col-2 text-right font-semibold text-primary">
+                  Fecha:
+                </span>
+                <span class="col-10">{{ item.updatedAt | date: 'full' }} </span>
+                <span class="col-2 text-right font-semibold text-primary">
+                  Origen:
+                </span>
+                <span class="col-10"
+                  >{{ item.emisor.fullName }} | {{ item.emisor.cargo }}</span
+                >
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="flex flex-column">
+                <p class="font-light text-primary text-center">Acciones</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </ng-template>
+  <!-- <ng-template let-product pTemplate="grid" let-products>
+
+    {{ product | json }}
+  </ng-template> -->
+  <ng-template pTemplate="empty">
+    <app-buzon-vacio class="w-full"></app-buzon-vacio>
+  </ng-template>
+</p-dataView>

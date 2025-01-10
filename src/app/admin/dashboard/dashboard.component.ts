@@ -63,22 +63,24 @@ export class DashboardComponent implements OnInit {
     this.userSubscription = this.authService.authState$.subscribe((user) => {
       this.user = user; // Actualiza la propiedad 'user' con el estado actual
 
-      this.hojasRutaService.getstats(user?.uid!).subscribe((res) => {
-        res.forEach((item: any) => {
-          switch (item.estado) {
-            case 'EMITIDA':
-              this.cantidadEnviados = item.cantidad;
-              break;
-            case 'RECIBIDA':
-              this.cantidadPendientes = item.cantidad;
-              break;
-            case 'DERIVADA':
-              this.cantidadEntrante = item.cantidad;
-              break;
-            case 'ARCHIVADA':
-              this.cantidadArchivo = item.cantidad;
-              break;
-          }
+      this.hojasRutaService.reloadData$.subscribe(() => {
+        this.hojasRutaService.getstats(user?.uid!).subscribe((res) => {
+          res.forEach((item: any) => {
+            switch (item.estado) {
+              case 'EMITIDA':
+                this.cantidadEnviados = item.cantidad;
+                break;
+              case 'RECIBIDA':
+                this.cantidadPendientes = item.cantidad;
+                break;
+              case 'DERIVADA':
+                this.cantidadEntrante = item.cantidad;
+                break;
+              case 'ARCHIVADA':
+                this.cantidadArchivo = item.cantidad;
+                break;
+            }
+          });
         });
       });
     });
