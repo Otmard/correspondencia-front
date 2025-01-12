@@ -23,6 +23,7 @@
     "@aws-sdk/lib-storage": "^3.716.0",
     "@aws-sdk/s3-request-presigner": "^3.716.0",
     "chart.js": "^4.4.7",
+    "date-fns": "^4.1.0",
     "docxtemplater": "^3.55.5",
     "file-saver": "^2.0.5",
     "jspdf": "^2.5.2",

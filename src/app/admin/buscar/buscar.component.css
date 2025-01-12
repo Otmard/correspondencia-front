@@ -1,0 +1,11 @@
+ul {
+  list-style: none;
+}
+li {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+:host ::ng-deep .p-card-subtitle,
+:host ::ng-deep .p-card-title {
+  color: var(--primary-color);
+}

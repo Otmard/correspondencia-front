@@ -8,6 +8,9 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class HojasRutaService {
+  getAllHojasRuta(): Observable<HojaRuta[]> {
+    return this.http.get<HojaRuta[]>(this.url);
+  }
   url = environment.backendUrl + '/hojas-ruta';
   http = inject(HttpClient);
   private reloadDataSubject = new Subject<void>();
@@ -63,9 +66,9 @@ export class HojasRutaService {
   getArchivadas(idUser: string): Observable<any> {
     return this.http.get<any>(this.url + '/archivadas/' + idUser);
   }
-  archivar(idHoja:number, idUser: string): Observable<any> {
+  archivar(idHoja: number, idUser: string): Observable<any> {
     return this.http.post<any>(this.url + '/archivar/', {
-      id:idHoja,
+      id: idHoja,
       idUser,
     });
   }

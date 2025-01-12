@@ -234,10 +234,10 @@
                 <p-button
                   label="Reponder a una hoja de ruta"
                   [disabled]="formDocumento.invalid"
-                  (onClick)="modalSelecionarHojaRuta = true"
+                  (onClick)="modalSelecionarHojaRuta = true; cargarPendientes()"
                 ></p-button
                 ><p-dialog
-                  header="Selecione hoja de ruta"
+                  header="Seleccione hoja de ruta"
                   [(visible)]="modalSelecionarHojaRuta"
                   [modal]="true"
                   [style]="{ width: '50vw', height: '80vh' }"
@@ -426,7 +426,7 @@
         ></ng-template
       ></p-stepperPanel> -->
     </p-stepper>
-    {{ formDocumento.value.destinatario|json }}
+    {{ formDocumento.value.destinatario | json }}
   </div>
 </form>
 

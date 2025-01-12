@@ -1,1 +1,121 @@
-<p>buscar works!</p>
+<div>
+  <p-dataView #dv [value]="HojasRuta" filterBy="id" layout="list">
+    <ng-template pTemplate="header">
+      <div>
+        <input
+          pInputText
+          type="text"
+          placeholder="Buscar por Hoja de Ruta"
+          [style]="{ width: '100%' }"
+          (input)="dv.filter(buscar($event))"
+        />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="list" let-hojaDeRuta>
+      <div class="grid grid-nogutter">
+        @for (item of hojaDeRuta; track item._id; let first = $first) {
+          <div class="col-12">
+            <div
+              class="grid"
+              [ngClass]="{ 'border-top-1 surface-border': !first }"
+            >
+              <div class="col-3 align-content-center">
+                <div
+                  class="flex flex-column justify-content-center align-items-center h-8rem text-primary"
+                >
+                  <i class="pi pi-file text-5xl"></i>
+                  <span class="text-2xl font-bold mt-2"
+                    >N° {{ item.id | padNumber: 5 }}</span
+                  >
+                </div>
+              </div>
+              <div class="col-6 align-content-center">
+                <div class="grid">
+                  <span class="col-2 text-right font-semibold text-primary"
+                    >De:</span
+                  >
+                  <span class="col-10"
+                    >{{ item.historialMovimientos[0].procedencia.fullName }} |
+                    {{ item.historialMovimientos[0].procedencia.cargo }}</span
+                  >
+                  <span class="col-2 text-right font-semibold text-primary"
+                    >Instruccion:</span
+                  >
+                  <span class="col-10"
+                    >{{ item.historialMovimientos[0].instruccion }}
+                  </span>
+                  <span class="col-2 text-right font-semibold text-primary">
+                    Fecha:
+                  </span>
+                  <span class="col-10"
+                    >{{ item.updatedAt | date: 'full' }}
+                  </span>
+                  <span class="col-2 text-right font-semibold text-primary">
+                    Origen:
+                  </span>
+                  <span class="col-10"
+                    >{{ item.emisor.fullName }} | {{ item.emisor.cargo }}</span
+                  >
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="flex flex-column">
+                  <p class="font-light text-primary text-center">Acciones</p>
+                  <p-button
+                    label="Ver"
+                    icon="pi pi-check-square"
+                    [style]="{ width: '100%' }"
+                    (onClick)="verHojaRuta(item)"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>
+@if (selectedHojaRuta) {
+  <p-dialog
+    [(visible)]="modalHojaRuta"
+    header="Hoja Ruta"
+    modal="true"
+    [style]="{ width: '80vw', height: '80vh' }"
+    ><p-timeline
+      [value]="selectedHojaRuta.historialMovimientos"
+      align="alternate"
+      styleClass="customized-timeline"
+      ><ng-template pTemplate="marker" let-event>
+        <span
+          class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+          [style]="{ 'background-color': 'var(--primary-color)' }"
+        >
+          <i class="pi pi-check"></i>
+        </span>
+      </ng-template>
+      <ng-template pTemplate="content" let-event>
+        <p-card [header]="event.accion" [subheader]="getdate(event.createdAt)">
+          <!-- {{ event | json }} -->
+          <p>
+            {{ event.accion }}
+          </p>
+          <p>Documento: {{ event.documento.cite }}</p>
+          <p>Archivo:</p>
+          <ul>
+            @for (archivo of event.documento.archivo; track archivo) {
+              <li
+                class="cursor-pointer text-xl"
+                (click)="getdownloadUrl(archivo.archivo.key)"
+              >
+                {{ archivo.tipo }} |<span>
+                  {{ getFileType(archivo.archivo.tipo) }}
+                </span>
+              </li>
+            }
+          </ul>
+        </p-card>
+      </ng-template></p-timeline
+    >
+  </p-dialog>
+}

@@ -108,6 +108,8 @@ export class NuevoDocumentoComponent implements OnInit {
   }
 
   cargarPendientes() {
+    console.log('cargando');
+
     this.hojaRutaService
       .getPendientes(this.currentUser.uuid)
       .subscribe((res) => {
